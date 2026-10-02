@@ -1,0 +1,32 @@
+[Unit]
+Description=nRF24L01+ Communication Service
+Documentation=https://github.com/pi-nrf24-link
+After=network.target syslog.target
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/pi-nrf24-link --mode rx --verbose
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=nrf24-comm
+User=root
+Group=root
+AmbientCapabilities=CAP_SYS_RAWIO CAP_DAC_OVERRIDE
+CapabilityBoundingSet=CAP_SYS_RAWIO CAP_DAC_OVERRIDE
+NoNewPrivileges=yes
+ProtectSystem=full
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+
+[Install]
+WantedBy=multi-user.target
